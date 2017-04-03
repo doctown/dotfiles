@@ -5,13 +5,13 @@ let maplocalleader = "\<Space>"
 
 " Mappings
 " uppercases a word in insert mode
-inoremap <leader>u <esc>vawUi
+inoremap <C-u> <esc>vawUi
 " uppercases a word in normal mode
 nnoremap <leader>u vawU
 " maps 0 to first non-space character
 nnoremap 0 ^
 "  remove highlighting from searches
-nnoremap <leader>n :noh<cr>
+nnoremap <leader>nn :noh<cr>
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -156,12 +156,13 @@ filetype off
 filetype plugin indent on
 
 set nocompatible
+set scrolloff=3   " keep 3 lines when scrolling
 set modelines=0
 
 " Setup Vundle to manage my bundles
 " -----------------------------------
-set rtp+=~/.vim/bundles/vundle/
-call vundle#rc("~/.vim/bundles/")
+" set rtp+=~/.vim/bundles/vundle/
+" call vundle#rc("~/.vim/bundles/")
 
 " Plugins are each listed in their own file. Loop and source ftw
 " ----------------------------------------------------------------
@@ -171,40 +172,49 @@ syntax on
 
 set nocompatible              " be iMproved, required
 
-" call vundle#begin()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-projectionist'
-" Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
 
 " Plugins that help ctags integration
-Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-bundler.git'
-Bundle 'vim-ruby/vim-ruby'
+" Bundle 'vim-ruby/vim-ruby'
+
+call vundle#end()            " required
 
 runtime macros/matchit.vim
 if has("autocmd")
   filetype indent plugin on
 endif
 
+" Searching
 set hlsearch		" sets highligting of search keywords
 set incsearch		" performs an incremental search as text is being typed in
 set smartcase		" tries to be smart about case when searching
+set showmatch   " jump to matches when entering regexp
+set ignorecase  " ignore case when searching
 
 " Configure  backspace to act correctly
 set backspace=eol,start,indent		" sets backspace so MAC delete key works as backspace
 set whichwrap+=<,>,h,l
 
+" Spacing, tabs, and numbers
 set ruler		" adds a ruler to lower right corner for current position
 set number		" sets line numbers in the side column
 set relativenumber	" sets numbers relative to the current cursor
 set shiftround		" sets indent > | < to be multiples of shiftwidth
 set numberwidth=3	" sets width of column that shows line numbers
 
-set showmatch		" shows matching brackets when cursor is over them
+"Miscellaneous
+set showcmd       " display incomplete commands
 
 " Performance
 
@@ -214,8 +224,8 @@ set lazyredraw
 " Tabs, and indentation
 set expandtab		" use spaces instead of tabs
 set smarttab		" smart choices when using tabs
-set shiftwidth=4	" 1 tab equals 4 spaces
-set tabstop=4		" see above
+set shiftwidth=2	" 1 tab equals 2 spaces
+set tabstop=2		" see above
 set lbr			" add linebreak
 set tw=500		" linebreak at 500 lines
 set ai 			" Auto indent
