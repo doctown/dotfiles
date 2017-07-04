@@ -18,6 +18,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " writes a file
 nnoremap <leader>w :w!<cr>
 
+" saves and closes a file
+nnoremap <leader>q ZZ<cr>
+
 " disable arrow keys to help with learning
 :noremap <left> <nop>
 :noremap <right> <nop>
