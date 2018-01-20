@@ -185,6 +185,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-projectionist'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/tpope-vim-abolish'
+Plugin 'tpope/vim-repeat'
 
 " Plugins that help ctags integration
 " Bundle 'tpope/vim-fugitive'
@@ -218,6 +220,7 @@ set numberwidth=3	" sets width of column that shows line numbers
 
 "Miscellaneous
 set showcmd       " display incomplete commands
+set paste
 
 " Performance
 
@@ -263,3 +266,5 @@ function! HasPaste()
     return ''
 endfunction
 
+" Add function for vim-repeat
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
