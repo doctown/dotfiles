@@ -52,8 +52,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -68,7 +68,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -123,7 +123,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ag and put the cursor in the right position
-map <leader>g :Ag 
+map <leader>g :Ag
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -154,6 +154,15 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+" Find a word using find
+nnoremap <leader>f :Find<cr>
+
+" Search files using Files
+nnoremap <leader>o :Files<cr>
+
+" Open CtrlP
+nnoremap <leader>e :NERDTree<cr>
+
 " Required .vimrc configs
 filetype off
 filetype plugin indent on
@@ -179,25 +188,125 @@ set nocompatible              " be iMproved, required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rake'
+Plugin 'VundleVim/Vundle.vim'       " short for Vim bundle and is a Vim plugin manager
+Plugin 'tpope/vim-fugitive'         " best Git wrapper of all time
+Plugin 'tpope/vim-rake'             " like rails.vim
+Plugin 'tpope/vim-rails'            " plugin for editing Ruby on Rails applications
 Plugin 'tpope/vim-projectionist'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/tpope-vim-abolish'
 Plugin 'tpope/vim-repeat'
-
+Plugin 'kien/ctrlp.vim'                 " full path fuzzy file, buffer, mru, tag, ... finder
+Plugin 'vim-syntastic/syntastic'        " syntax checker
+Plugin 'scrooloose/nerdtree'            " file system explorer
+Plugin 'leafgarland/typescript-vim'     " syntax checker for typescript
+Plugin 'pangloss/vim-javascript'        " syntax highlighting and improved indentation for javascript
+Plugin 'FelikZ/ctrlp-py-matcher'        " Fast CtrlP matcher based on python
+Plugin 'BurntSushi/ripgrep'				" a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 						" a general-purpose command-line fuzzy finder.
+Plugin 'junegunn/fzf.vim'
 " Plugins that help ctags integration
 " Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-bundler.git'
-" Bundle 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-bundler.git'
+Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
+" Plugin '907th/vim-auto-save'                " utomatically saves changes to disk without having to use :w (or any binding to it) every time a buffer has been modified or based on your preferred events.
+" Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
+Plugin 'altercation/vim-colors-solarized'   "
+Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
+Plugin 'bling/vim-airline'                  " lean & mean status/tabline for vim that's light as air
+" Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
+Plugin 'tpope/vim-commentary'               " comment out a line
+Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
+Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone can agree on
+Plugin 'elzr/vim-json'                      " Vim plugin for intensely orgasmic commenting
+Plugin 'othree/html5.vim'                   " HTML5 omnicomplete and syntax
+Plugin 'thoughtbot/vim-rspec'               " Run Rspec specs from Vim
+Plugin 'klen/python-mode'                   " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box.
+Plugin 'machakann/vim-highlightedyank'      " adds highligting to yank test
+Plugin 'airblade/vim-gitgutter'             "  shows a git diff in the 'gutter' (sign column)
+
+" [vim-workspace] settings
+nnoremap <leader>s :ToggleWorkspace<CR>
+let g:workspace_autocreate = 1						  " a session is automatically created if it doesn't exist
+let g:workspace_autosave_always = 1 				" set autosave to be always on, even outside of a session, add
+let g:workspace_session_disable_on_args = 1 " sessions will not load if you're explicitly loading a file in a workspace directory (as opposed to an argument-less `vim`)
 
 call vundle#end()            " required
 
+" [vim-cololrs-solarized] settings
+let g:solarized_termcolors=256
+let g:solarized_bold=1
+let g:solarized_italic=1
+let g:solarized_underline=1
+let g:solarized_contrast="high"
+let g:solarized_termtrans=1
+set background=dark
+colorscheme solarized
+
+" Clear signs on restart to show correctly
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChangeDelete ctermfg=yellow
+
+" Reloading vimrc
+" https://stackoverflow.com/questions/14943190/reloading-vimrc-causes-different-syntax-highlighting
+augroup reload_vimrc
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+"
+" [molakai] settings
+" let g:molokai_original = 1
+
 runtime macros/matchit.vim
-if has("autocmd")
-  filetype indent plugin on
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find2
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" USE WITH MAC: command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+set grepprg=rg\ --vimgrep       "  ripgrep can also be used for grepprg
+" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
+
+" [Autosave] settings
+let g:auto_save = 1  " enable AutoSave on Vim startup
+
+" Auto read for files edited by other programs
+set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NEOVIM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:loaded_python_provider = 1
+let g:loaded_python3_provider = 1
+
+" Plugins to skip when using neovim
+if has('nvim')
+    let g:loaded_sensible = 0
 endif
 
 " Searching
@@ -220,12 +329,11 @@ set numberwidth=3	" sets width of column that shows line numbers
 
 "Miscellaneous
 set showcmd       " display incomplete commands
-set paste
 
 " Performance
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " Tabs, and indentation
 set expandtab		" use spaces instead of tabs
@@ -237,6 +345,9 @@ set tw=500		" linebreak at 500 lines
 set ai 			" Auto indent
 set si			" Smart indent
 set wrap		" Word wrap
+
+" Clipboard
+" set clipboard=unnamed       " For MacVim to copy to the system clipboard
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -268,3 +379,45 @@ endfunction
 
 " Add function for vim-repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
+let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
+" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_max_files=0
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+" Speed CtrlP - https://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JAVASCRIPT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-javascript configuration
+let g:javascript_plugin_jsdoc = 1       " Enables syntax highlighting for JSDocs.
+let g:javascript_plugin_ngdoc = 1       " Enables some additional syntax highlighting for NGDocs. Requires JSDoc plugin to be enabled as well.
+" augroup javascript_folding              " Enables code folding for javascript based on our syntax file. * Please note this can have a dramatic effect on performance.
+"     au!
+"     au FileType javascript setlocal foldmethod=syntax
+" augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PYTHON
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python nnoremap <buffer> <leader>r :exec '!python' shellescape(@%, 1)<cr>       " Run the current file in python when <leader>r NOT WORKING
+autocmd FileType python nnoremap <leader>R <Esc>:w<CR>:!clear;python %<CR>      " Run the current file in python, WORKING

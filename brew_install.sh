@@ -22,3 +22,4 @@ wget # grab remote files with a URL
 vimpagerse # vim colorization rules for paging through any file - you may want to replace 'less' with this --STRUCTUREDISKFREQUENTLY
 imagemagick
 macvim --override-system-vim  # install macvim as the default vim mode
+tmux # a terminal multiplexer
