@@ -34,10 +34,10 @@ nnoremap <leader>q ZZ<cr>
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <leader>j <C-W>j
+map <leader>k <C-W>k
+map <leader>h <C-W>h
+map <leader>l <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
@@ -67,6 +67,9 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Remap <mark> to gm becouse of easyClip
+nnoremap gm m
 
 " Specify the behavior when switching between buffers
 try
@@ -194,45 +197,58 @@ set nocompatible              " be iMproved, required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'       " short for Vim bundle and is a Vim plugin manager
-Plugin 'tpope/vim-fugitive'         " best Git wrapper of all time
-Plugin 'tpope/vim-rake'             " like rails.vim
-Plugin 'tpope/vim-rails'            " plugin for editing Ruby on Rails applications
-Plugin 'tpope/vim-projectionist'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/tpope-vim-abolish'
-Plugin 'tpope/vim-repeat'
-Plugin 'kien/ctrlp.vim'                 " full path fuzzy file, buffer, mru, tag, ... finder
-Plugin 'vim-syntastic/syntastic'        " syntax checker
-Plugin 'scrooloose/nerdtree'            " file system explorer
-Plugin 'leafgarland/typescript-vim'     " syntax checker for typescript
-Plugin 'pangloss/vim-javascript'        " syntax highlighting and improved indentation for javascript
-Plugin 'FelikZ/ctrlp-py-matcher'        " Fast CtrlP matcher based on python
-Plugin 'BurntSushi/ripgrep'				" a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
+
+" Plugin '907th/vim-auto-save'                " utomatically saves changes to disk without having to use :w (or any binding to it) every time a buffer has been modified or based on your preferred events.
+" Plugin 'klen/python-mode'                   " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box.
+" Plugin 'leafgarland/typescript-vim'         " syntax checker for typescript
+" Plugin 'othree/html5.vim'                   " HTML5 omnicomplete and syntax
+" Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
+" Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
+" Plugin 'vim-syntastic/syntastic'            " syntax checker
+" Plugins that help ctags integration
+Plugin 'BurntSushi/ripgrep'				          " a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
+Plugin 'FelikZ/ctrlp-py-matcher'            " Fast CtrlP matcher based on python
+Plugin 'VundleVim/Vundle.vim'               " short for Vim bundle and is a Vim plugin manager
+Plugin 'airblade/vim-gitgutter'             "  shows a git diff in the 'gutter' (sign column)
+Plugin 'altercation/vim-colors-solarized'   "
+Plugin 'bling/vim-airline'                  " lean & mean status/tabline for vim that's light as air
+Plugin 'christoomey/vim-sort-motion'        " motions for sorting
+Plugin 'christoomey/vim-system-copy'        " copy to system keyboard
+Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
+Plugin 'christoomey/vim-tmux-runner'        " Intergration for sending text from vim to tmux
+Plugin 'elzr/vim-json'                      " json formatter
+Plugin 'janko-m/vim-test'                     " A Vim wrapper for running tests on different granularities.
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 						" a general-purpose command-line fuzzy finder.
 Plugin 'junegunn/fzf.vim'
-" Plugins that help ctags integration
-" Bundle 'tpope/vim-fugitive'
-Plugin 'tpope/vim-bundler.git'
-Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
-" Plugin '907th/vim-auto-save'                " utomatically saves changes to disk without having to use :w (or any binding to it) every time a buffer has been modified or based on your preferred events.
-" Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
-Plugin 'altercation/vim-colors-solarized'   "
-Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
-Plugin 'bling/vim-airline'                  " lean & mean status/tabline for vim that's light as air
-" Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
-Plugin 'tpope/vim-commentary'               " comment out a line
-Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
-Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone can agree on
-Plugin 'elzr/vim-json'                      " Vim plugin for intensely orgasmic commenting
-Plugin 'othree/html5.vim'                   " HTML5 omnicomplete and syntax
-Plugin 'thoughtbot/vim-rspec'               " Run Rspec specs from Vim
-Plugin 'klen/python-mode'                   " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box.
+Plugin 'kassio/neoterm'                     " REPL for neo terminal
+Plugin 'kien/ctrlp.vim'                     " full path fuzzy file, buffer, mru, tag, ... finder
 Plugin 'machakann/vim-highlightedyank'      " adds highligting to yank test
-Plugin 'airblade/vim-gitgutter'             "  shows a git diff in the 'gutter' (sign column)
+Plugin 'michaeljsmith/vim-indent-object'    " defines a new text object, based on indentation levels.
+Plugin 'mileszs/ack.vim'                    " search for files
+Plugin 'nelstrom/vim-textobj-rubyblock'     " text object for ruby
+Plugin 'pangloss/vim-javascript'            " syntax highlighting and improved indentation for javascript
+Plugin 'scrooloose/nerdtree'                " file system explorer
+Plugin 'svermeulen/vim-easyclip'            " clipboard manager
+Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
+Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
+Plugin 'thoughtbot/vim-rspec'               " Run Rspec specs from Vim
+Plugin 'tpope/tpope-vim-abolish'
+Plugin 'tpope/vim-bundler.git'
+Plugin 'tpope/vim-commentary'               " Vim plugin for intensely orgasmic commenting, comment out a line
+Plugin 'tpope/vim-fugitive'                 " best Git wrapper of all time
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-rails'                    " plugin for editing Ruby on Rails applications
+Plugin 'tpope/vim-rake'                     " like rails.vim
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone can agree on
+Plugin 'tpope/vim-surround'                   " provides mappings to easily delete, change and add such surroundings in pairs
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kana/vim-textobj-user'              " create your own text objects
+Plugin 'tpope/vim-unimpaired'               " complementary pairs of mappings
+
 
 " [vim-workspace] settings
-nnoremap <leader>s :ToggleWorkspace<CR>
+nnoremap <leader>S :ToggleWorkspace<CR>
 let g:workspace_autocreate = 1						  " a session is automatically created if it doesn't exist
 let g:workspace_autosave_always = 1 				" set autosave to be always on, even outside of a session, add
 let g:workspace_session_disable_on_args = 1 " sessions will not load if you're explicitly loading a file in a workspace directory (as opposed to an argument-less `vim`)
@@ -290,6 +306,12 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 set grepprg=rg\ --vimgrep       "  ripgrep can also be used for grepprg
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 
+" RSpec.vim mappings
+map <leader>rt :call RunCurrentSpecFile()<CR>
+map <leader>rs :call RunNearestSpec()<CR>
+map <leader>rl :call RunLastSpec()<CR>
+map <leader>ra :call RunAllSpecs()<CR><Paste>
+
 " [Autosave] settings
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
@@ -314,6 +336,13 @@ let g:loaded_python3_provider = 1
 if has('nvim')
     let g:loaded_sensible = 0
 endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-RSPEC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rspec_runner = "os_x_iterm2"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Searching
 set hlsearch		" sets highligting of search keywords
@@ -389,17 +418,17 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
-let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
-" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
+" let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
+" " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
@@ -410,6 +439,35 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind K to grep word under cursor
+nnoremap KK :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Bind K to grep word under cursor
+nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
+vnoremap K y:Ack! "\b<C-R>"\b"<CR>:cw<CR>
+" Ack search
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Ack be pucking all over terminal
+set shellpipe=>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " JAVASCRIPT
@@ -427,3 +485,24 @@ let g:javascript_plugin_ngdoc = 1       " Enables some additional syntax highlig
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python nnoremap <buffer> <leader>r :exec '!python' shellescape(@%, 1)<cr>       " Run the current file in python when <leader>r NOT WORKING
 autocmd FileType python nnoremap <leader>R <Esc>:w<CR>:!clear;python %<CR>      " Run the current file in python, WORKING
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-TMUX-RUNNER
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config for working with python files
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+
+""""""""""""""""""""""""""""""
+" => vim-fugitive
+""""""""""""""""""""""""""""""
+" http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+" Delete Fugitive buffers when I leave them so they don't pollute BufExplorer
+augroup FugitiveCustom
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
