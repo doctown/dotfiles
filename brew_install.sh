@@ -23,3 +23,7 @@ vimpagerse # vim colorization rules for paging through any file - you may want t
 imagemagick
 macvim --override-system-vim  # install macvim as the default vim mode
 tmux # a terminal multiplexer
+brew tap Goles/battery
+brew install battery                          # adds a battery symbol that can be used in tmux status
+brew install tmux-mem-cpu-load                # adds mem, cpu load in tmux status
+brew install fzf                              # fuzzy finder in the terminal
