@@ -1,5 +1,42 @@
 " (>^.^<) "
+"
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer:
+"       David O (doctown)
+"
+" Sections:
+"    -> General
+"    -> Leader Key Mappings
+"    -> VIM User interface
+"    -> Colors and Fonts
+"    -> Files and backups
+"    -> Text, tab and indent related
+"    -> Visual mode related
+"    -> Moving around, tabs and buffers
+"    -> Status line
+"    -> Editing mappings
+"    -> vimgrep searching and cope displaying
+"    -> Spell checking
+"    -> Misc
+"    -> Helper functions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Required .vimrc configs
+filetype off
+filetype plugin indent on
+syntax on
+set nocompatible              " be iMproved, required
+set nocompatible
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Leader key mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" leader
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
@@ -30,10 +67,11 @@ nnoremap <leader>q ZZ<cr>
 :inoremap <right> <nop>
 :inoremap <up> <nop>
 :inoremap <down> <nop>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" => Moving around, tabs, wiwindows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart way to move between windows
+" Smart way to move between ndows
 map <leader>j <C-W>j
 map <leader>k <C-W>k
 map <leader>h <C-W>h
@@ -60,7 +98,6 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -68,8 +105,36 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Remap <mark> to gm becouse of easyClip
-nnoremap gm m
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Spacing, tabs, and numbers
+set ruler		" adds a ruler to lower right corner for current position
+set number		" sets line numbers in the side column
+set relativenumber	" sets numbers relative to the current cursor
+set shiftround		" sets indent > | < to be multiples of shiftwidth
+set numberwidth=3	" sets width of column that shows line numbers
+
+"Miscellaneous
+set showcmd       " display incomplete commands
+
+" Performance
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" Tabs, and indentation
+set expandtab		" use spaces instead of tabs
+set smarttab		" smart choices when using tabs
+set shiftwidth=2	" 1 tab equals 2 spaces
+set tabstop=2		" see above
+set lbr			" add linebreak
+set tw=500		" linebreak at 500 lines
+set ai 			" Auto indent
+set si			" Smart indent
+set wrap		" Word wrap
 
 " Specify the behavior when switching between buffers
 try
@@ -77,6 +142,10 @@ try
   set stal=2
 catch
 endtry
+
+ " ctags optimization
+ set autochdir
+ set tags=tags;
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -172,11 +241,6 @@ nnoremap <leader>o :Files<cr>
 " Open CtrlP
 nnoremap <leader>e :NERDTree<cr>
 
-" Required .vimrc configs
-filetype off
-filetype plugin indent on
-
-set nocompatible
 set scrolloff=3   " keep 3 lines when scrolling
 set modelines=0
 
@@ -187,11 +251,6 @@ set modelines=0
 
 " Plugins are each listed in their own file. Loop and source ftw
 " ----------------------------------------------------------------
-
-filetype plugin indent on " required!
-syntax on
-
-set nocompatible              " be iMproved, required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -306,12 +365,6 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 set grepprg=rg\ --vimgrep       "  ripgrep can also be used for grepprg
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 
-" RSpec.vim mappings
-map <leader>rt :call RunCurrentSpecFile()<CR>
-map <leader>rs :call RunNearestSpec()<CR>
-map <leader>rl :call RunLastSpec()<CR>
-map <leader>ra :call RunAllSpecs()<CR><Paste>
-
 " [Autosave] settings
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
@@ -338,12 +391,6 @@ if has('nvim')
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VIM-RSPEC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:rspec_runner = "os_x_iterm2"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Searching
 set hlsearch		" sets highligting of search keywords
 set incsearch		" performs an incremental search as text is being typed in
@@ -354,32 +401,6 @@ set ignorecase  " ignore case when searching
 " Configure  backspace to act correctly
 set backspace=eol,start,indent		" sets backspace so MAC delete key works as backspace
 set whichwrap+=<,>,h,l
-
-" Spacing, tabs, and numbers
-set ruler		" adds a ruler to lower right corner for current position
-set number		" sets line numbers in the side column
-set relativenumber	" sets numbers relative to the current cursor
-set shiftround		" sets indent > | < to be multiples of shiftwidth
-set numberwidth=3	" sets width of column that shows line numbers
-
-"Miscellaneous
-set showcmd       " display incomplete commands
-
-" Performance
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" Tabs, and indentation
-set expandtab		" use spaces instead of tabs
-set smarttab		" smart choices when using tabs
-set shiftwidth=2	" 1 tab equals 2 spaces
-set tabstop=2		" see above
-set lbr			" add linebreak
-set tw=500		" linebreak at 500 lines
-set ai 			" Auto indent
-set si			" Smart indent
-set wrap		" Word wrap
 
 " Clipboard
 " set clipboard=unnamed       " For MacVim to copy to the system clipboard
@@ -414,6 +435,10 @@ endfunction
 
 " Add function for vim-repeat
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
@@ -456,7 +481,7 @@ endif
 nnoremap KK :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ack
+" ACK
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bind K to grep word under cursor
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -495,7 +520,7 @@ let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
 
 """"""""""""""""""""""""""""""
-" => vim-fugitive
+" VIM-FUGITIVE
 """"""""""""""""""""""""""""""
 " http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 autocmd User fugitive
@@ -506,3 +531,84 @@ autocmd User fugitive
 augroup FugitiveCustom
   autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-RSPEC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Settings
+let g:rspec_runner = "os_x_iterm2"
+
+" RSpec.vim mappings
+map <leader>rt :call RunCurrentSpecFile()<CR>
+map <leader>rn :call RunNearestSpec()<CR>
+map <leader>rl :call RunLastSpec()<CR>
+map <leader>ra :call RunAllSpecs()<CR><Paste>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EASY-CLIP
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap <mark> to gm becouse of easyClip
+nnoremap gm m
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ag \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+

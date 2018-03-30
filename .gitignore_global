@@ -42,3 +42,6 @@ secrets.js
 # Vim Workspace
 Session.vim
 .undodir
+
+# ctags
+tags
