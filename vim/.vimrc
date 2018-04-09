@@ -69,13 +69,13 @@ nnoremap <leader>q ZZ<cr>
 :inoremap <down> <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, wiwindows and buffers
+" => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart way to move between ndows
-map <leader>j <C-W>j
-map <leader>k <C-W>k
-map <leader>h <C-W>h
-map <leader>l <C-W>l
+" Smart way to move between windows
+" map <leader>j <C-W>j
+" map <leader>k <C-W>k
+" map <leader>h <C-W>h
+" map <leader>l <C-W>l
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
@@ -87,11 +87,16 @@ map <leader>bn :bnext<cr>
 map <leader>bp :bprevious<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
+nnoremap <leader>ts :tab split<cr>
+
+" Moves the current tab to left or right
+nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -229,6 +234,12 @@ map <leader>q :e ~/buffer<cr>
 " Quickly open a markdown buffer for scribble
 map <leader>x :e ~/buffer.md<cr>
 
+let g:S = 0  "result in global variable S
+function! Sum(number)
+  let g:S = g:S + a:number
+  return a:number
+endfunction
+
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
@@ -263,7 +274,7 @@ call vundle#begin()
 " Plugin 'othree/html5.vim'                   " HTML5 omnicomplete and syntax
 " Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
 " Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
-" Plugin 'vim-syntastic/syntastic'            " syntax checker
+Plugin 'vim-syntastic/syntastic'            " syntax checker
 " Plugins that help ctags integration
 Plugin 'BurntSushi/ripgrep'				          " a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
 Plugin 'FelikZ/ctrlp-py-matcher'            " Fast CtrlP matcher based on python
@@ -304,6 +315,11 @@ Plugin 'tpope/vim-surround'                   " provides mappings to easily dele
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'kana/vim-textobj-user'              " create your own text objects
 Plugin 'tpope/vim-unimpaired'               " complementary pairs of mappings
+Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
+Plugin 'majutsushi/tagbar'                  " sidebar ctags for a file
+Plugin 'godlygeek/tabular'                  " line up spaces
+Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
+Plugin 'ervandew/supertab'                  " allow tab completion
 
 
 " [vim-workspace] settings
@@ -549,6 +565,19 @@ map <leader>ra :call RunAllSpecs()<CR><Paste>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap <mark> to gm becouse of easyClip
 nnoremap gm m
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TAGBAR
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle tagbar
+nnoremap <leader>TT :TagbarToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERD TREE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ignore files
+let NERDTreeIgnore = ['\.DAT$', '\.LOG1$', '\.LOG1$']
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
