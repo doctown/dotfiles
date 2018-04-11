@@ -459,7 +459,7 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
+let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
 " let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
 " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
 " set statusline+=%#warningmsg#
@@ -477,9 +477,6 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 let g:ctrlp_max_files=0
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 " Speed CtrlP - https://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 
 " The Silver Searcher
 if executable('ag')
