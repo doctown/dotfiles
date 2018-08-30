@@ -638,3 +638,4 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+set tags=tags
