@@ -57,7 +57,7 @@ brew cask install sublime-text
 # productivity
 brew cask install 1password
 brew cask install alfred
-brew cask install licecap
+brew cask install licecap       #
 
 # entertainment
 brew cask install spotify

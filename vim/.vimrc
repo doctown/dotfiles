@@ -248,6 +248,7 @@ nnoremap <leader>f :Find<cr>
 
 " Search files using Files
 nnoremap <leader>o :Files<cr>
+nnoremap <leader>t :execute 'Files' ProjectRootGuess()<CR>
 
 " Open CtrlP
 nnoremap <leader>e :NERDTree<cr>
@@ -267,17 +268,11 @@ set modelines=0
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-
-" Plugin '907th/vim-auto-save'                " utomatically saves changes to disk without having to use :w (or any binding to it) every time a buffer has been modified or based on your preferred events.
-" Plugin 'klen/python-mode'                   " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box.
-" Plugin 'leafgarland/typescript-vim'         " syntax checker for typescript
-" Plugin 'othree/html5.vim'                   " HTML5 omnicomplete and syntax
 " Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
 " Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
-Plugin 'vim-syntastic/syntastic'            " syntax checker
+" Plugin 'vim-syntastic/syntastic'            " syntax checker
 " Plugins that help ctags integration
 Plugin 'BurntSushi/ripgrep'				          " a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
-Plugin 'FelikZ/ctrlp-py-matcher'            " Fast CtrlP matcher based on python
 Plugin 'VundleVim/Vundle.vim'               " short for Vim bundle and is a Vim plugin manager
 Plugin 'airblade/vim-gitgutter'             "  shows a git diff in the 'gutter' (sign column)
 Plugin 'altercation/vim-colors-solarized'   "
@@ -295,32 +290,49 @@ Plugin 'kien/ctrlp.vim'                     " full path fuzzy file, buffer, mru,
 Plugin 'machakann/vim-highlightedyank'      " adds highligting to yank test
 Plugin 'michaeljsmith/vim-indent-object'    " defines a new text object, based on indentation levels.
 Plugin 'mileszs/ack.vim'                    " search for files
-Plugin 'nelstrom/vim-textobj-rubyblock'     " text object for ruby
-Plugin 'pangloss/vim-javascript'            " syntax highlighting and improved indentation for javascript
 Plugin 'scrooloose/nerdtree'                " file system explorer
 Plugin 'svermeulen/vim-easyclip'            " clipboard manager
 Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
 Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
-Plugin 'thoughtbot/vim-rspec'               " Run Rspec specs from Vim
 Plugin 'tpope/tpope-vim-abolish'
 Plugin 'tpope/vim-bundler.git'
 Plugin 'tpope/vim-commentary'               " Vim plugin for intensely orgasmic commenting, comment out a line
 Plugin 'tpope/vim-fugitive'                 " best Git wrapper of all time
 Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-rails'                    " plugin for editing Ruby on Rails applications
-Plugin 'tpope/vim-rake'                     " like rails.vim
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone can agree on
 Plugin 'tpope/vim-surround'                   " provides mappings to easily delete, change and add such surroundings in pairs
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'kana/vim-textobj-user'              " create your own text objects
 Plugin 'tpope/vim-unimpaired'               " complementary pairs of mappings
-Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
+" Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
 Plugin 'majutsushi/tagbar'                  " sidebar ctags for a file
 Plugin 'godlygeek/tabular'                  " line up spaces
 Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
 Plugin 'ervandew/supertab'                  " allow tab completion
+Plugin 'dbakker/vim-projectroot'            " changes the directory to project root
+Plugin 'w0rp/ale'                           " asynchronous lint engine
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUBY PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin 'nelstrom/vim-textobj-rubyblock'     " text object for ruby
+" Plugin 'vim-ruby/vim-ruby'
+" Plugin 'tpope/vim-rails'                    " plugin for editing Ruby on Rails applications
+" Plugin 'tpope/vim-rake'                     " like rails.vim
+" Plugin 'thoughtbot/vim-rspec'               " Run Rspec specs from Vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PYTHON PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin 'klen/python-mode'                   " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box.
+" Plugin 'FelikZ/ctrlp-py-matcher'            " Fast CtrlP matcher based on python
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" JAVASCRIPT PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plugin 'pangloss/vim-javascript'            " syntax highlighting and improved indentation for javascript
+Plugin 'mxw/vim-jsx'                        " jsx syntax highlighting
 
 " [vim-workspace] settings
 nnoremap <leader>S :ToggleWorkspace<CR>
@@ -432,6 +444,9 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set spell checking to be turned on automatically
+set spell
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -459,17 +474,17 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
-" let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
+" let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
+let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
 " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+ set statusline+=%#warningmsg#
+ set statusline+=%{SyntasticStatuslineFlag()}
+ set statusline+=%*
+
+ let g:syntastic_always_populate_loc_list = 1
+ let g:syntastic_auto_loc_list = 1
+ let g:syntastic_check_on_open = 1
+ let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
@@ -513,10 +528,17 @@ set shellpipe=>
 " vim-javascript configuration
 let g:javascript_plugin_jsdoc = 1       " Enables syntax highlighting for JSDocs.
 let g:javascript_plugin_ngdoc = 1       " Enables some additional syntax highlighting for NGDocs. Requires JSDoc plugin to be enabled as well.
+" let g:javascript_plugin_flow = 1
 " augroup javascript_folding              " Enables code folding for javascript based on our syntax file. * Please note this can have a dramatic effect on performance.
 "     au!
 "     au FileType javascript setlocal foldmethod=syntax
 " augroup END
+let g:jsx_ext_required = 0
+
+" Prettier
+" autocmd FileType javascript set formatprg=prettier\ --stdin
+" autocmd BufWritePre *.js :normal gggqG
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PYTHON
@@ -549,13 +571,13 @@ augroup END
 " VIM-RSPEC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings
-let g:rspec_runner = "os_x_iterm2"
+" let g:rspec_runner = "os_x_iterm2"
 
-" RSpec.vim mappings
-map <leader>rt :call RunCurrentSpecFile()<CR>
-map <leader>rn :call RunNearestSpec()<CR>
-map <leader>rl :call RunLastSpec()<CR>
-map <leader>ra :call RunAllSpecs()<CR><Paste>
+" " RSpec.vim mappings
+" map <leader>rt :call RunCurrentSpecFile()<CR>
+" map <leader>rn :call RunNearestSpec()<CR>
+" map <leader>rl :call RunLastSpec()<CR>
+" map <leader>ra :call RunAllSpecs()<CR><Paste>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EASY-CLIP
@@ -575,6 +597,12 @@ nnoremap <leader>TT :TagbarToggle<CR>
 " Ignore files
 let NERDTreeIgnore = ['\.DAT$', '\.LOG1$', '\.LOG1$']
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PROJECTROOT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>dp :ProjectRootCD<cr>
+let g:rootmarkers = ['OWNERS', '.projectroot','.git','.hg','.svn','.bzr','_darcs','build.xml']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -638,4 +666,3 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-set tags=tags
