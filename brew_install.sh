@@ -1,4 +1,4 @@
-# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew update
 # brew install awscli # commandline tools for Amazon web services --pdated. Nice to have brew take care of it
@@ -22,9 +22,8 @@ brew install tig # curses git repo browser
 brew install tmux # terminal multiplexer # a better 'screen'
 brew install tmuxinator # terminal multiplexer # a better 'screen'
 brew install tree # view directorynder CWD
-brew install unrarnarchive # .rar files
+brew install unrar # .rar files
 brew install wget # grab remote files with a URL
-brew install vimpagerse # vim colorization rules for paging through any file - you may want to replace 'less' with this --STRUCTUREDISKFREQUENTLY
 brew install imagemagick
 # brew install macvim --override-system-vim  # install macvim as the default vim mode
 brew install tap Goles/battery
@@ -32,6 +31,11 @@ brew install battery                          # adds a battery symbol that can b
 brew install tmux-mem-cpu-load                # adds mem, cpu load in tmux status
 brew install fzf                              # fuzzy finder in the terminal
 brew install zsh zsh-completions
+brew install ack                              # a search tool designed for code
+brew install python                           # python3
+brew install python@2                         # python2.7
+brew cask install java8
+
 brew install cask
 
 # homebrew-cask
@@ -47,7 +51,7 @@ brew cask install safari-technology-preview
 
 # coding
 brew cask install kaleidoscope
-brew cask install iterm
+brew cask install iterm2
 brew cask install mou
 brew cask install postman         # api tool
 brew cask install paw             # api tool
