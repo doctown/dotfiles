@@ -49,6 +49,8 @@ nnoremap <leader>u vawU
 nnoremap 0 ^
 "  remove highlighting from searches
 nnoremap <leader>nn :noh<cr>
+
+" access vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -59,14 +61,14 @@ nnoremap <leader>w :w!<cr>
 nnoremap <leader>q ZZ<cr>
 
 " disable arrow keys to help with learning
-:noremap <left> <nop>
-:noremap <right> <nop>
-:noremap <up> <nop>
-:noremap <down> <nop>
-:inoremap <left> <nop>
-:inoremap <right> <nop>
-:inoremap <up> <nop>
-:inoremap <down> <nop>
+" :noremap <left> <nop>
+" :noremap <right> <nop>
+" :noremap <up> <nop>
+" :noremap <down> <nop>
+" :inoremap <left> <nop>
+" :inoremap <right> <nop>
+" :inoremap <up> <nop>
+" :inoremap <down> <nop>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -85,6 +87,9 @@ map <leader>ba :bufdo bd<cr>
 
 map <leader>bn :bnext<cr>
 map <leader>bp :bprevious<cr>
+
+" Open Buffers
+nnoremap <leader>b :Buffers<cr>
 
 " Useful mappings for managing tabs
 nnoremap <leader>tn :tabnew<cr>
@@ -110,6 +115,26 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" set where split window opens
+set splitbelow
+set splitright
+
+" Go to tab by number - https://superuser.com/questions/410982/in-vim-how-can-i-quickly-switch-between-tabs#411004
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" Go to last active tab
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> <c-ll> :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <c-ll> :exe "tabn ".g:lasttab<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -268,50 +293,53 @@ set modelines=0
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
 " Plugin 'valloric/youcompleteme'             " a code-completion engine for vim
 " Plugin 'vim-syntastic/syntastic'            " syntax checker
-" Plugins that help ctags integration
-Plugin 'BurntSushi/ripgrep'				          " a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
-Plugin 'VundleVim/Vundle.vim'               " short for Vim bundle and is a Vim plugin manager
-Plugin 'airblade/vim-gitgutter'             "  shows a git diff in the 'gutter' (sign column)
-Plugin 'altercation/vim-colors-solarized'   "
+Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
+Plugin 'altercation/vim-colors-solarized'   " color scheme
 Plugin 'bling/vim-airline'                  " lean & mean status/tabline for vim that's light as air
+Plugin 'BurntSushi/ripgrep'                 " a line-oriented search tool that recursively searches your current directory for a regex pattern while respecting your gitignore rules.
 Plugin 'christoomey/vim-sort-motion'        " motions for sorting
 Plugin 'christoomey/vim-system-copy'        " copy to system keyboard
 Plugin 'christoomey/vim-tmux-navigator'     " Seamless navigation between tmux panes and vim splits
 Plugin 'christoomey/vim-tmux-runner'        " Intergration for sending text from vim to tmux
+Plugin 'dbakker/vim-projectroot'            " changes the directory to project root
 Plugin 'elzr/vim-json'                      " json formatter
+Plugin 'ervandew/supertab'                  " allow tab completion
+Plugin 'godlygeek/tabular'                  " line up spaces
+Plugin 'honza/vim-snippets'                 " snippets for vim
+Plugin 'isRuslan/vim-es6'                   " JavaScript ES6 snippet
 Plugin 'janko-m/vim-test'                     " A Vim wrapper for running tests on different granularities.
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 						" a general-purpose command-line fuzzy finder.
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                                            " a general-purpose command-line fuzzy finder.
 Plugin 'junegunn/fzf.vim'
+Plugin 'kana/vim-textobj-user'              " create your own text objects
 Plugin 'kassio/neoterm'                     " REPL for neo terminal
 Plugin 'kien/ctrlp.vim'                     " full path fuzzy file, buffer, mru, tag, ... finder
 Plugin 'machakann/vim-highlightedyank'      " adds highligting to yank test
+Plugin 'majutsushi/tagbar'                  " sidebar ctags for a file
 Plugin 'michaeljsmith/vim-indent-object'    " defines a new text object, based on indentation levels.
 Plugin 'mileszs/ack.vim'                    " search for files
+Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
 Plugin 'scrooloose/nerdtree'                " file system explorer
+Plugin 'SirVer/ultisnips'                   " ultimate solution for snippets in Vim - Track the engine.
 Plugin 'svermeulen/vim-easyclip'            " clipboard manager
 Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
 Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
+Plugin 'tomasr/molokai'                     " Molokai color scheme for Vim
 Plugin 'tpope/tpope-vim-abolish'
 Plugin 'tpope/vim-bundler.git'
 Plugin 'tpope/vim-commentary'               " Vim plugin for intensely orgasmic commenting, comment out a line
 Plugin 'tpope/vim-fugitive'                 " best Git wrapper of all time
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
 Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone can agree on
 Plugin 'tpope/vim-surround'                   " provides mappings to easily delete, change and add such surroundings in pairs
-Plugin 'kana/vim-textobj-user'              " create your own text objects
 Plugin 'tpope/vim-unimpaired'               " complementary pairs of mappings
-" Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
-Plugin 'majutsushi/tagbar'                  " sidebar ctags for a file
-Plugin 'godlygeek/tabular'                  " line up spaces
-Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
-Plugin 'ervandew/supertab'                  " allow tab completion
-Plugin 'dbakker/vim-projectroot'            " changes the directory to project root
+Plugin 'VundleVim/Vundle.vim'               " short for Vim bundle and is a Vim plugin manager
+Plugin 'w0ng/vim-hybrid'                    " A dark colour scheme for Vim
 Plugin 'w0rp/ale'                           " asynchronous lint engine
-
+Plugin 'sickill/vim-monokai'                " monokai colorscheme
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUBY PLUGINS
@@ -342,15 +370,34 @@ let g:workspace_session_disable_on_args = 1 " sessions will not load if you're e
 
 call vundle#end()            " required
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR SCHEMES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " [vim-cololrs-solarized] settings
-let g:solarized_termcolors=256
-let g:solarized_bold=1
-let g:solarized_italic=1
-let g:solarized_underline=1
-let g:solarized_contrast="high"
-let g:solarized_termtrans=1
+" colorscheme solarized
+" set background=dark
+" let g:solarized_termcolors=256
+" let g:solarized_bold=1
+" let g:solarized_italic=1
+" let g:solarized_underline=1
+" let g:solarized_contrast="high"
+" let g:solarized_termtrans=1
+
+" [molakai] settings
+" colorscheme molokai
+" let g:molokai_original = 1
+" let g:rehash256 = 1
+
+" [molakai] settings
+syntax enable
+" colorscheme monokai
+
+" [vim-hybrid] settings
+colorscheme hybrid
 set background=dark
-colorscheme solarized
+let g:hybrid_custom_term_colors = 1
+" let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 
 " Clear signs on restart to show correctly
 highlight clear SignColumn
@@ -358,16 +405,7 @@ highlight GitGutterAdd ctermfg=green
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=yellow
-
-" Reloading vimrc
-" https://stackoverflow.com/questions/14943190/reloading-vimrc-causes-different-syntax-highlighting
-augroup reload_vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
-"
-" [molakai] settings
-" let g:molokai_original = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 runtime macros/matchit.vim
 
@@ -475,16 +513,16 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 " Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
-let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
-" " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
- set statusline+=%#warningmsg#
- set statusline+=%{SyntasticStatuslineFlag()}
- set statusline+=%*
+" let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
+" " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
+"  set statusline+=%#warningmsg#
+"  set statusline+=%{SyntasticStatuslineFlag()}
+"  set statusline+=%*
 
- let g:syntastic_always_populate_loc_list = 1
- let g:syntastic_auto_loc_list = 1
- let g:syntastic_check_on_open = 1
- let g:syntastic_check_on_wq = 0
+"  let g:syntastic_always_populate_loc_list = 1
+"  let g:syntastic_auto_loc_list = 1
+"  let g:syntastic_check_on_open = 1
+"  let g:syntastic_check_on_wq = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
@@ -513,6 +551,7 @@ nnoremap KK :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bind K to grep word under cursor
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap Kk :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR> " TODO: Try to get this Ack to work on the Project folder
 vnoremap K y:Ack! "\b<C-R>"\b"<CR>:cw<CR>
 " Ack search
 if executable('ag')
@@ -605,6 +644,20 @@ nnoremap <leader>dp :ProjectRootCD<cr>
 let g:rootmarkers = ['OWNERS', '.projectroot','.git','.hg','.svn','.bzr','_darcs','build.xml']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-SORT-MOTION
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:sort_motion_flags = "ui"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ULTISNIPS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-a>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -665,4 +718,20 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FIXES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reloading vimrc
+" https://stackoverflow.com/questions/14943190/reloading-vimrc-causes-different-syntax-highlighting
+augroup reload_vimrc
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChangeDelete ctermfg=yellow
 
