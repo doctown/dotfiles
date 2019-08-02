@@ -321,7 +321,7 @@ Plugin 'michaeljsmith/vim-indent-object'    " defines a new text object, based o
 Plugin 'mileszs/ack.vim'                    " search for files
 Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
 Plugin 'scrooloose/nerdtree'                " file system explorer
-Plugin 'SirVer/ultisnips'                   " ultimate solution for snippets in Vim - Track the engine.
+" Plugin 'SirVer/ultisnips'                   " ultimate solution for snippets in Vim - Track the engine.
 Plugin 'svermeulen/vim-easyclip'            " clipboard manager
 Plugin 'terryma/vim-multiple-cursors'       " True Sublime Text style multiple selections for Vim
 Plugin 'thaerkh/vim-workspace'                " Automated Vim session management and file auto-save
@@ -735,3 +735,7 @@ highlight GitGutterChange ctermfg=yellow
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChangeDelete ctermfg=yellow
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FILE TYPES
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile,BufRead *.workflow set filetype=json
