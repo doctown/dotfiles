@@ -304,14 +304,13 @@ Plugin 'tpope/vim-sensible'                 " sensible.vim: Defaults everyone ca
 Plugin 'tpope/vim-surround'                   " provides mappings to easily delete, change and add such surroundings in pairs
 Plugin 'kana/vim-textobj-user'              " create your own text objects
 Plugin 'tpope/vim-unimpaired'               " complementary pairs of mappings
-" Plugin 'tpope/vim-rhubarb'                  " enhances fugitive using Hub
+" Plugin 'tpope/vim-rhubarb'                 " enhances fugitive using Hub
 Plugin 'majutsushi/tagbar'                  " sidebar ctags for a file
 Plugin 'godlygeek/tabular'                  " line up spaces
 Plugin 'plasticboy/vim-markdown'            " syntax highlighting for markdown
 Plugin 'ervandew/supertab'                  " allow tab completion
 Plugin 'dbakker/vim-projectroot'            " changes the directory to project root
 Plugin 'w0rp/ale'                           " asynchronous lint engine
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUBY PLUGINS
@@ -333,6 +332,8 @@ Plugin 'w0rp/ale'                           " asynchronous lint engine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'pangloss/vim-javascript'            " syntax highlighting and improved indentation for javascript
 Plugin 'mxw/vim-jsx'                        " jsx syntax highlighting
+Plugin 'leafgarland/typescript-vim'         " support for typescript and jsx
+Plugin 'peitalin/vim-jsx-typescript'        " tsx syntax highlighting
 
 " [vim-workspace] settings
 nnoremap <leader>S :ToggleWorkspace<CR>
@@ -477,8 +478,9 @@ silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 " let g:syntastic_ruby_checkers = ["rubocop"]					" Enables syntax checking for ruby
 let g:syntastic_javascript_checkers = ['eslint']      " Sets javascript checker
 " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'   " An alternative is to have Syntastic use the project-specific binary of eslint:
+let g:statline_syntastic = 0
  set statusline+=%#warningmsg#
- set statusline+=%{SyntasticStatuslineFlag()}
+ " set statusline+=%{SyntasticStatuslineFlag()}
  set statusline+=%*
 
  let g:syntastic_always_populate_loc_list = 1
@@ -538,6 +540,44 @@ let g:jsx_ext_required = 0
 " Prettier
 " autocmd FileType javascript set formatprg=prettier\ --stdin
 " autocmd BufWritePre *.js :normal gggqG
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM-JSX-TYPESCRIPT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+" Config
+" dark red
+hi tsxTagName guifg=#E06C75
+hi tsxComponentName guifg=#E06C75
+hi tsxCloseComponentName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxCloseTagName guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" light-grey
+hi tsxTypeBraces guifg=#999999
+" dark-grey
+hi tsxTypes guifg=#666666
+
+" Other changes
+hi ReactState guifg=#C176A7
+hi ReactProps guifg=#D19A66
+hi ApolloGraphQL guifg=#CB886B
+hi Events ctermfg=204 guifg=#56B6C2
+hi ReduxKeywords ctermfg=204 guifg=#C678DD
+hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
+hi WebBrowser ctermfg=204 guifg=#56B6C2
+hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
