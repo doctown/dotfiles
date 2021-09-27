@@ -34,40 +34,43 @@ brew install zsh zsh-completions
 brew install ack                              # a search tool designed for code
 brew install python                           # python3
 brew install python@2                         # python2.7
-brew cask install java8
 
 brew install cask
+
 
 # homebrew-cask
 brew tap caskroom/cask
 brew tap caskroom/versions
 
+brew install --cask java8
+
 # browsers
-brew cask install google-chrome
-brew cask install google-chrome-canary
-brew cask install firefox
-brew cask install firefox-beta
-brew cask install safari-technology-preview
+brew install --cask google-chrome
+brew install --cask google-chrome-canary
+brew install --cask firefox
+brew install --cask firefox-beta
+brew install --cask safari-technology-preview
 
 # coding
-brew cask install kaleidoscope
-brew cask install iterm2
-brew cask install mou
-brew cask install postman         # api tool
-brew cask install paw             # api tool
-brew cask install sourcetree
-brew cask install sublime-text
+# brew install --cask kaleidoscope
+brew install --cask iterm2
+brew install --cask mou
+brew install --cask postman         # api tool
+# brew install --cask paw             # api tool
+# brew install --cask sourcetree
+# brew install --cask sublime-text
 
 # productivity
-brew cask install 1password
-brew cask install alfred
-brew cask install licecap       #
+# brew install --cask 1password
+# brew install --cask alfred
+# brew install --cask licecap       #
 
 # entertainment
-brew cask install spotify
-brew cask install vlc
+brew install --cask spotify
+brew install --cask vlc
 
 # misc
-brew cask install screenflow
-brew cask install slack
-brew cask install the-unarchiver
+# brew install --cask screenflow
+brew install --cask slack
+brew install --cask the-unarchiver
+brew install --cask virtualbox

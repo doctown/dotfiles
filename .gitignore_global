@@ -28,6 +28,7 @@ node_modules
 
 # Optional npm cache directory
 .npm
+node_modules
 
 # configuration things
 secrets.js
