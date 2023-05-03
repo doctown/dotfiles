@@ -1,4 +1,4 @@
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew update
 # brew install awscli # commandline tools for Amazon web services --pdated. Nice to have brew take care of it
@@ -34,6 +34,7 @@ brew install zsh zsh-completions
 brew install ack                              # a search tool designed for code
 brew install python                           # python3
 brew install python@2                         # python2.7
+brew install ripgrep  # used in vimrc for searching Files
 
 brew install cask
 
